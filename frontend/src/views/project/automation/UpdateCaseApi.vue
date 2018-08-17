@@ -119,7 +119,7 @@
                             <el-input :class="ParameterTyep? 'parameter-b': 'parameter-a'" type="textarea" :rows="5" placeholder="请输入内容" v-model.trim="form.parameterRaw"></el-input>
                         </template>
                     </el-collapse-item>
-                    <el-dialog title="关联" v-model="searchApiVisible" :close-on-click-modal="false">
+                    <el-dialog title="关联" :visible.sync="searchApiVisible" :close-on-click-modal="false">
                         <el-row :gutter="10">
                             <el-col :span="6">
                                 <div style="height:400px;line-height:100px;overflow:auto;overflow-x:hidden;border: 1px solid #e6e6e6">
@@ -326,7 +326,14 @@
             },
             addInterrelateSubmit() {
                 this.saveCorrelation = true;
-                this.interrelateObjects['value'] =  this.currentRow['tier'];
+                try {
+                    this.interrelateObjects['value'] =  this.currentRow['tier'];
+                } catch (e) {
+                    this.$message.warning({
+                        message: '未选中接口参数',
+                        center: true,
+                    });
+                }
                 this.interrelateObjects['interrelate'] = true;
                 this.saveCorrelation = false;
                 this.searchApiVisible = false;
