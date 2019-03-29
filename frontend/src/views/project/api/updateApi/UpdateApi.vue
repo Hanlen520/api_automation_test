@@ -381,7 +381,7 @@
                                 self.form.head = data.headers;
                             }
                             try {
-                                self.parameterRaw = data.requestParameterRaw[0].data;
+                                self.parameterRaw = data.requestParameterRaw.data.replace(/'/g, "\"").replace(/None/g, "null").replace(/True/g, "true").replace(/False/g, "false");
                             } catch (e){
 
                             }
@@ -682,15 +682,20 @@
     }
     .selectInput {
         position: absolute;
-        margin-left: 7px;
-        padding-left: 10px;
+        /*margin-left: 7px;*/
+        padding-left: 9px;
         width: 180px;
-        height: 25px;
+        /*border-radius:0px;*/
+        /*height: 38px;*/
         left: 1px;
-        top: 1px;
-        border-bottom: 0px;
         border-right: 0px;
-        border-left: 0px;
-        border-top: 0px;
+    }
+</style>
+<style lang="scss">
+    .selectInput{
+        input{
+            border-right: 0px;
+            border-radius: 4px 0px 0px 4px;
+        }
     }
 </style>
